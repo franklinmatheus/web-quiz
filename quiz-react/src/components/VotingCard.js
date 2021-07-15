@@ -3,6 +3,8 @@
  */
 
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+
 import VotingBooth from './VotingBooth'
 import VotingResult from './VotingResult'
 
@@ -42,4 +44,10 @@ export default function VotingCard({title, state, votes, ...props}) {
             {content}
         </div>
     )
+}
+
+VotingCard.propTypes = {
+    title: PropTypes.string,
+    state: PropTypes.string,
+    votes: PropTypes.array
 }

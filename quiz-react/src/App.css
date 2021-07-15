@@ -5,11 +5,11 @@
 }
 
 .vote.card {
-  background-color: lightgray;
+  background-color: lightblue;
 }
 
 .vote.result {
-  background-color: lightblue;
+  background-color: lightgray;
 }
 
 button {
