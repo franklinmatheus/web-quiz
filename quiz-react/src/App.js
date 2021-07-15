@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import VotingCard from './components/VotingCard'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const title = 'Pink Floyd é a melhor banda de Rock britânica?'
+const votes = [
+    {'option':'Sim','count':10},
+    {'option':'Não','count':2}
+]
+
+export default function App() {
+    return (
+        <div>
+            <VotingCard 
+                title={title} 
+                state='open'
+                votes={votes}
+            />
+        </div>
+    );
 }
-
-export default App;
