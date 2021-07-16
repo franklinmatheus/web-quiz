@@ -1,28 +1,43 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <VotingCard :title="this.title" :state="'open'" :votes="this.votes"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import VotingCard from "./components/VotingCard.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    VotingCard,
   },
+  data: () => ({
+    title: "Pink Floyd é a melhor banda de Rock britânica?",
+    votes: [
+      {option:"Sim",count:10},
+      {option:'Não',count:2}
+    ]
+  })
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.vote {
+  padding: 1em;
+  border-radius: 0.2em;
+  border: 0.1em solid gray;
+}
+
+.vote.card {
+  background-color: lightblue;
+}
+
+.vote.result {
+  background-color: lightgray;
+}
+
+button {
+  margin: 0.4em;
 }
 </style>
