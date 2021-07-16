@@ -2,9 +2,19 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <div>
+      <voting-card 
+        [title]="title" 
+        [state]="state"
+        [votes]="votes"
+      ></voting-card>
+    </div>
+  `
 })
+
 export class AppComponent {
-  title = 'intro-storybook-angular-template';
+  title = 'Pink Floyd é a melhor banda de Rock britânica?'
+  state = 'open'
+  votes = [{'option':'Sim','count':10},{'option':'Não','count':2}]
 }

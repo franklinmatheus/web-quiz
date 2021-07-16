@@ -1,0 +1,14 @@
+<div class="vote card" [ngClass]="{ result: state === 'closed' }">
+    <h3><b>{{ title }}</b></h3>
+    <ng-container *ngIf="state === 'open'; else second">
+        <voting-booth [options]="votes" (vote)="vote($event)"></voting-booth>
+    </ng-container>
+    <ng-template #second>
+        <ng-container *ngIf="state === 'closed'; else third">
+            <voting-result [votes]="votes"></voting-result>
+        </ng-container>
+    </ng-template>
+    <ng-template #third>
+        <p>[wrong state] {{ state }}</p>
+    </ng-template>
+</div>

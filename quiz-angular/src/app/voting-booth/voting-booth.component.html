@@ -1,0 +1,8 @@
+<div>
+    <button
+      *ngFor="let option of options; index as i"
+      (click)="vote.emit(i)"
+    >
+      {{ option.option }}
+    </button>
+</div>
