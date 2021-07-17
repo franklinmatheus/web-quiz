@@ -431,7 +431,7 @@
                 "args": [],
                 "line": 9
             },
-            "templateData": "<div>\n  <ul>\n    <li\n\t\t\t*ngFor=\"let item of votes\"\n    >\n\t\t\t{{ item.option }}: {{ item.count }} votes\n    </li>\n\t</ul>\n</div>\n"
+            "templateData": "<div>\n  <ol>\n    <li\n\t\t\t*ngFor=\"let item of votes\"\n    >\n\t\t\t{{ item.option }}: {{ item.count }} votes\n    </li>\n\t</ol>\n</div>\n"
         }
     ],
     "modules": [
@@ -541,6 +541,14 @@
                 "defaultValue": "Template.bind({})"
             },
             {
+                "name": "PinkFloyd",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-card/voting-card.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -587,6 +595,46 @@
                 "file": "src/stories/Page.stories.ts",
                 "type": "Story<Page>",
                 "defaultValue": "(args: Page) => ({\n  component: Page,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-booth/voting-booth.stories.ts",
+                "type": "Story<VotingBoothComponent>",
+                "defaultValue": "(args: VotingBoothComponent) => ({\r\n    component: VotingBoothComponent,\r\n    props: args,\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-card/voting-card.stories.ts",
+                "type": "Story<VotingCardComponent>",
+                "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n  })"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-result/voting-result.stories.ts",
+                "type": "Story<VotingResultComponent>",
+                "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+            },
+            {
+                "name": "YesNo",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-booth/voting-booth.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "YesNo",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-result/voting-result.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             }
         ],
         "functions": [],
@@ -706,6 +754,60 @@
                     "type": "Story<Page>",
                     "defaultValue": "(args: Page) => ({\n  component: Page,\n  props: args,\n})"
                 }
+            ],
+            "src/app/voting-card/voting-card.stories.ts": [
+                {
+                    "name": "PinkFloyd",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-card/voting-card.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-card/voting-card.stories.ts",
+                    "type": "Story<VotingCardComponent>",
+                    "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n  })"
+                }
+            ],
+            "src/app/voting-booth/voting-booth.stories.ts": [
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-booth/voting-booth.stories.ts",
+                    "type": "Story<VotingBoothComponent>",
+                    "defaultValue": "(args: VotingBoothComponent) => ({\r\n    component: VotingBoothComponent,\r\n    props: args,\r\n})"
+                },
+                {
+                    "name": "YesNo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-booth/voting-booth.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
+            ],
+            "src/app/voting-result/voting-result.stories.ts": [
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-result/voting-result.stories.ts",
+                    "type": "Story<VotingResultComponent>",
+                    "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+                },
+                {
+                    "name": "YesNo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-result/voting-result.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
             ]
         },
         "groupedFunctions": {},
@@ -714,7 +816,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 4,
+        "count": 3,
         "status": "low",
         "files": [
             {
@@ -736,6 +838,26 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/voting-booth/voting-booth.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/voting-booth/voting-booth.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "YesNo",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/voting-card/voting-card.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -745,12 +867,52 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/voting-card/voting-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PinkFloyd",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/voting-card/voting-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/voting-result/voting-result.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "VotingResultComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/voting-result/voting-result.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/voting-result/voting-result.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "YesNo",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
