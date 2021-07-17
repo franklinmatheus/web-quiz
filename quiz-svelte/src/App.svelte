@@ -1,4 +1,5 @@
 <script>
+	import './app.css'
 	import VotingCard from './VotingCard.svelte'
 
 	let title = 'Pink Floyd é a melhor banda de Rock britânica?'

@@ -1,0 +1,17 @@
+.vote {
+    padding: 1em;
+    border-radius: 0.2em;
+    border: 0.1em solid gray;
+  }
+  
+  .vote.card {
+    background-color: lightblue;
+  }
+  
+  .vote.result {
+    background-color: lightgray;
+  }
+  
+  button {
+    margin: 0.4em;
+  }
