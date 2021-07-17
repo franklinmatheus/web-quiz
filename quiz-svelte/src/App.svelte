@@ -1,30 +1,17 @@
 <script>
-	export let name;
+	import VotingCard from './VotingCard.svelte'
+
+	let title = 'Pink Floyd é a melhor banda de Rock britânica?'
+    let votes = [{ option: 'Sim', count: 10 },{ option: 'Não', count: 2 }]
+	let state = 'open'
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<div>
+		<VotingCard title={ title } votes={ votes } state={ state } />
+	</div>
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
