@@ -13,5 +13,5 @@ const Template = (args, { argTypes }) => ({
 
 export const YesNo = Template.bind({})
 YesNo.args = {
-    options: ["Sim","Não"]
+    options: [{'option':'Sim','count':10},{'option':'Não','count':2}]
 }

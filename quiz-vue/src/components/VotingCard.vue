@@ -1,19 +1,19 @@
 <template>
   <div
     class="vote card"
-    :class="{ 'vote result': this.quizState === 'closed' }"
+    :class="{ 'vote result': this.votingState === 'closed' }"
   >
     <h3>
       <b>{{ title }}</b>
     </h3>
-    <div v-if="this.quizState === 'open'">
-      <VotingBooth :options="quizOptions" @onVote="vote" />
+    <div v-if="this.votingState === 'open'">
+      <VotingBooth :options="votingOptions" @onVote="vote" />
     </div>
-    <div v-else-if="this.quizState === 'closed'">
-      <VotingResult :votes="quizOptions" />
+    <div v-else-if="this.votingState === 'closed'">
+      <VotingResult :votes="votingOptions" />
     </div>
     <div v-else>
-      <p>[wrong state] {{ quizState }}</p>
+      <p>[wrong state] {{ votingState }}</p>
     </div>
   </div>
 </template>
@@ -30,14 +30,14 @@ export default {
   },
   components: { VotingBooth, VotingResult },
   data: (props) => ({
-    quizState: props.state,
-    quizOptions: props.votes,
+    votingState: props.state,
+    votingOptions: props.votes,
   }),
   methods: {
     vote(voteIndex) {
-      this.quizOptions[voteIndex]["count"] =
-        this.quizOptions[voteIndex]["count"] + 1;
-      this.quizState = "closed";
+      this.votingOptions[voteIndex]["count"] =
+        this.votingOptions[voteIndex]["count"] + 1;
+      this.votingState = "closed";
     },
   },
 };
