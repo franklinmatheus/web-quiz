@@ -1,10 +1,10 @@
 <script>
-    export let options
+    export let votes
 </script>
 
 <div>
     <ol>
-        {#each options as item, index (item)}
+        {#each votes as item, index (item)}
             <li>
                 {item.option}: {item.count} votes
             </li>

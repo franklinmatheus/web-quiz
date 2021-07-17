@@ -1,12 +1,12 @@
 <script>
     import { createEventDispatcher } from 'svelte'
 
-    export let votes 
+    export let options 
     const dispatcher = createEventDispatcher()
 </script>
 
 <div>
-    {#each votes as item, index (item)}
+    {#each options as item, index (item)}
         <button on:click={dispatcher('voted', {voteIndex: index} )}>
             { item.option }
         </button>

@@ -16,9 +16,9 @@
 <div class="vote card" class:result="{state === 'closed'}">
     <h3><b>{ title }</b></h3>
     {#if state === 'open'}
-        <VotingBooth votes={ votes } on:voted={vote} />
+        <VotingBooth options={ votes } on:voted={vote} />
     {:else if state === 'closed'}
-        <VotingResult options={ votes } />
+        <VotingResult votes={ votes } />
     {:else}
         <p>[wrong state] { state }</p>
     {/if}
