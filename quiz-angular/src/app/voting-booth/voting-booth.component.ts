@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 
 export class VotingBoothComponent {
-  @Input() options: string[]
+  @Input() options: {}[]
   @Output() vote = new EventEmitter<number>()
   constructor() { }
 }

@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
 })
 
 export class VotingResultComponent {
-  @Input() votes: []
+  @Input() votes: {}[]
   constructor() { }
 
   perc(index: number) {

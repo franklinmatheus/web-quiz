@@ -1,5 +1,3 @@
-
-
 import { CommonModule } from '@angular/common'
 import { moduleMetadata } from '@storybook/angular'
 import { Story, Meta } from '@storybook/angular/types-6-0'
@@ -27,7 +25,8 @@ export default {
 const Template: Story<VotingCardComponent> = (args: VotingCardComponent) => ({
     component: VotingCardComponent,
     props: args,
-  })
+})
+
 export const PinkFloyd = Template.bind({})
 PinkFloyd.args = {
     title: 'Pink Floyd é a melhor banda de Rock britânica?',
