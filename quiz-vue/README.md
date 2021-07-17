@@ -1,29 +1,21 @@
-# quiz-vue
+## 🚅  Vue Quiz
 
-## Project setup
-```
-yarn install
-```
+1.  **Install the dependencies.**
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+    Just:
 
-### Compiles and minifies for production
-```
-yarn build
-```
+    ```shell
+    # Go to the directory
+    cd quiz-vue/
 
-### Run your unit tests
-```
-yarn test:unit
-```
+    # Install the dependencies
+    yarn install
+    ```
 
-### Lints and fixes files
-```
-yarn lint
-```
+2.  **Run the vue project!**
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    Run `yarn serve` and go to `http://localhost:8080`
+
+3.  **Check out the stories!**
+
+    Run `yarn storybook` and go to `http://localhost:6006`
