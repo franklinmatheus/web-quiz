@@ -392,7 +392,7 @@
         },
         {
             "name": "VotingResultComponent",
-            "id": "component-VotingResultComponent-99c80e10f2fe933ac135bce8c5840412",
+            "id": "component-VotingResultComponent-112313a77c83a94d180f0bd745331a31",
             "file": "src/app/voting-result/voting-result.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -415,13 +415,36 @@
             ],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "perc",
+                    "args": [
+                        {
+                            "name": "index",
+                            "type": "number"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 12,
+                    "jsdoctags": [
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'voting-result',\n  templateUrl: './voting-result.component.html'\n})\n\nexport class VotingResultComponent {\n  @Input() votes: []\n  constructor() { }\n}\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'voting-result',\n  templateUrl: './voting-result.component.html'\n})\n\nexport class VotingResultComponent {\n  @Input() votes: []\n  constructor() { }\n\n  perc(index: number) {\n    let total = this.votes.reduce((sum, item) => {return sum + item['count']}, 0)\n    return (this.votes[index]['count']/total*100).toFixed(2)       \n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -431,7 +454,7 @@
                 "args": [],
                 "line": 9
             },
-            "templateData": "<div>\n  <ol>\n    <li\n\t\t\t*ngFor=\"let item of votes\"\n    >\n\t\t\t{{ item.option }}: {{ item.count }} votes\n    </li>\n\t</ol>\n</div>\n"
+            "templateData": "<div>\n  <ol>\n    <li\n\t\t\t*ngFor=\"let item of votes; index as index\"\n    >\n\t\t\t{{ item.option }}: {{ item.count }} votes ({{ perc(index) }}%)\n    </li>\n\t</ol>\n</div>\n"
         }
     ],
     "modules": [
@@ -892,7 +915,7 @@
                 "linktype": "component",
                 "name": "VotingResultComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {

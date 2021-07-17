@@ -1,9 +1,9 @@
 <div>
   <ol>
     <li
-			*ngFor="let item of votes"
+			*ngFor="let item of votes; index as index"
     >
-			{{ item.option }}: {{ item.count }} votes
+			{{ item.option }}: {{ item.count }} votes ({{ perc(index) }}%)
     </li>
 	</ol>
 </div>
