@@ -330,6 +330,14 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/voting-booth/voting-booth.stories.ts",
+                "type": "Story<VotingBoothComponent>",
+                "defaultValue": "(args: VotingBoothComponent) => ({\r\n    component: VotingBoothComponent,\r\n    props: args,\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/voting-card/voting-card.stories.ts",
                 "type": "Story<VotingCardComponent>",
                 "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n})"
@@ -343,18 +351,10 @@
                 "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
             },
             {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/voting-booth/voting-booth.stories.ts",
-                "type": "Story<VotingBoothComponent>",
-                "defaultValue": "(args: VotingBoothComponent) => ({\r\n    component: VotingBoothComponent,\r\n    props: args,\r\n})"
-            },
-            {
                 "name": "YesNo",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/voting-result/voting-result.stories.ts",
+                "file": "src/app/voting-booth/voting-booth.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -362,7 +362,7 @@
                 "name": "YesNo",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/voting-booth/voting-booth.stories.ts",
+                "file": "src/app/voting-result/voting-result.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             }
@@ -409,24 +409,6 @@
                     "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n})"
                 }
             ],
-            "src/app/voting-result/voting-result.stories.ts": [
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/voting-result/voting-result.stories.ts",
-                    "type": "Story<VotingResultComponent>",
-                    "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
-                },
-                {
-                    "name": "YesNo",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/voting-result/voting-result.stories.ts",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                }
-            ],
             "src/app/voting-booth/voting-booth.stories.ts": [
                 {
                     "name": "Template",
@@ -441,6 +423,24 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-booth/voting-booth.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
+            ],
+            "src/app/voting-result/voting-result.stories.ts": [
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-result/voting-result.stories.ts",
+                    "type": "Story<VotingResultComponent>",
+                    "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+                },
+                {
+                    "name": "YesNo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-result/voting-result.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 }
