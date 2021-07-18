@@ -20,4 +20,4 @@
 
     Run `yarn storybook` and go to `http://localhost:6006`
 
-    Check out the Storybook by clicking [here](https://60f12febfa49df0039342b16-ppzryeoxnl.chromatic.com).
+    Check out the Storybook by clicking [here](https://60f3a24f70fd860039dc8f9d-ezzlnohwqs.chromatic.com).

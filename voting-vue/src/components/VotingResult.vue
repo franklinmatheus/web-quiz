@@ -15,9 +15,11 @@ export default {
   },
   methods: {
     perc(index) {
-      let total = this.votes.reduce((sum, item) => {return sum + item['count']}, 0)
-      return (this.votes[index]['count']/total*100).toFixed(2) 
-    }
-  }
+      let total = this.votes.reduce((sum, item) => {
+        return sum + item["count"];
+      }, 0);
+      return ((this.votes[index]["count"] / total) * 100).toFixed(2);
+    },
+  },
 };
 </script>
