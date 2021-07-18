@@ -1,4 +1,4 @@
-## 🚅  Angular Quiz
+## Voting Angular
 
 1.  **Install the dependencies.**
 
