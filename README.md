@@ -1,3 +1,3 @@
 ## Web Voting
 
-desenvolvimento de uma cartão de votação utilizando quatro diferentes frameworks web: React, Angular, Vue e Svelte.
+Development of a voting card using four different web frameworks:  React, Angular, Vue e Svelte.

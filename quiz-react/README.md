@@ -19,3 +19,5 @@
 3.  **Check out the stories!**
 
     Run `yarn storybook` and go to `http://localhost:6006`
+    
+    Check out the Storybook by clicking [here](https://60efc5a95a1772003b6e3c55-itervvkgpa.chromatic.com).
