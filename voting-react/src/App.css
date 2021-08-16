@@ -15,3 +15,44 @@
 button {
   margin: 0.4em;
 }
+
+button.listing {
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+}
+
+button.new {
+  margin: 0;
+}
+
+.option {
+  margin: 0.1em;
+  padding: 0.2em;
+  background-color: lightgray;
+  border-radius: 0.25em;
+}
+
+.form-item {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.label {
+  min-width: 5em;
+  margin-right: 0.5em;
+  text-align: right;
+  font-weight: bold;
+}
+
+.error {
+  position: absolute;
+  color: red;
+  font-style: italic;
+  font-size: smaller;
+}
+
+input {
+  width: 40em;
+}

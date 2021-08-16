@@ -23,7 +23,6 @@ export default function VotingCard({title, state, votes, ...props}) {
 
     let content
 
-    console.log(quizState)
     if (quizState === 'open') {
         content = (
             <VotingBooth options={options} onVote={vote} />
