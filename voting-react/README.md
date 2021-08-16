@@ -1,4 +1,4 @@
-## 🚅  React Quiz
+## Voting React
 
 1.  **Install the dependencies.**
 

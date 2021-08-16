@@ -1,4 +1,4 @@
-## 🚅  Svelte Quiz
+## Voting Svelte
 
 1.  **Install the dependencies.**
 

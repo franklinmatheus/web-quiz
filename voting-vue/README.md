@@ -1,4 +1,4 @@
-## 🚅  Vue Quiz
+## Voting Vue
 
 1.  **Install the dependencies.**
 
