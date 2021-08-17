@@ -3,10 +3,10 @@
     "interfaces": [
         {
             "name": "VotingType",
-            "id": "interface-VotingType-f6be734fbb9eab8f94b9b2ec2626cede",
+            "id": "interface-VotingType-f3d358a53ed67dbf619e76b4f9668fc5",
             "file": "src/app/voting-form/voting-form.component.ts",
             "type": "interface",
-            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    title\r\n    options\r\n\r\n    ngOnInit() {\r\n        this.title = this.voting.title || ''\r\n        this.options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => this.options[index] = value['option'])\r\n    }\r\n\r\n    onSubmit() {\r\n        console.log(this.options)\r\n        \r\n        let tempVotes = this.options.map(\r\n            (option) => { \r\n                return {option:option,count:0}\r\n            }).filter(\r\n                (item) => item.option.trim() !== ''\r\n            )\r\n        \r\n        this.voting.title = this.title\r\n        this.voting.votes = tempVotes\r\n\r\n        this.updated.emit(this.voting)\r\n    }\r\n}",
+            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    data\r\n\r\n    ngOnInit() {\r\n        this.data = {title:'',options:[]}\r\n        this.data.title = this.voting.title || ''\r\n        this.data.options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => this.data.options[index] = value['option'])\r\n    }\r\n\r\n    onSubmit() {\r\n        let tempVotes = this.data.options.map(\r\n            (option) => { \r\n                return {option:option,count:0}\r\n            }).filter(\r\n                (item) => item.option.trim() !== ''\r\n            )\r\n        \r\n        this.voting.title = this.data.title\r\n        this.voting.votes = tempVotes\r\n\r\n        this.updated.emit(this.voting)\r\n    }\r\n}",
             "properties": [
                 {
                     "name": "state",
@@ -397,7 +397,7 @@
         },
         {
             "name": "VotingFormComponent",
-            "id": "component-VotingFormComponent-f6be734fbb9eab8f94b9b2ec2626cede",
+            "id": "component-VotingFormComponent-f3d358a53ed67dbf619e76b4f9668fc5",
             "file": "src/app/voting-form/voting-form.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -434,14 +434,7 @@
             ],
             "propertiesClass": [
                 {
-                    "name": "options",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 21
-                },
-                {
-                    "name": "title",
+                    "name": "data",
                     "type": "",
                     "optional": false,
                     "description": "",
@@ -455,7 +448,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23
+                    "line": 22
                 },
                 {
                     "name": "onSubmit",
@@ -471,14 +464,14 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    title\r\n    options\r\n\r\n    ngOnInit() {\r\n        this.title = this.voting.title || ''\r\n        this.options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => this.options[index] = value['option'])\r\n    }\r\n\r\n    onSubmit() {\r\n        console.log(this.options)\r\n        \r\n        let tempVotes = this.options.map(\r\n            (option) => { \r\n                return {option:option,count:0}\r\n            }).filter(\r\n                (item) => item.option.trim() !== ''\r\n            )\r\n        \r\n        this.voting.title = this.title\r\n        this.voting.votes = tempVotes\r\n\r\n        this.updated.emit(this.voting)\r\n    }\r\n}",
+            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    data\r\n\r\n    ngOnInit() {\r\n        this.data = {title:'',options:[]}\r\n        this.data.title = this.voting.title || ''\r\n        this.data.options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => this.data.options[index] = value['option'])\r\n    }\r\n\r\n    onSubmit() {\r\n        let tempVotes = this.data.options.map(\r\n            (option) => { \r\n                return {option:option,count:0}\r\n            }).filter(\r\n                (item) => item.option.trim() !== ''\r\n            )\r\n        \r\n        this.voting.title = this.data.title\r\n        this.voting.votes = tempVotes\r\n\r\n        this.updated.emit(this.voting)\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div>\r\n    <form #votingForm=\"ngForm\" (ngSubmit)=\"votingForm.form.valid && onSubmit()\">\r\n        <custom-input\r\n            label=\"Título\"\r\n            name=\"title\"\r\n            placeholder=\"Insira o título da votação\"\r\n            [(value)]=\"title\"\r\n            isRequired=\"true\"\r\n            minlength=3\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 1\"\r\n            placeholder=\"Insira a opção 1\"\r\n            [(value)]=\"options[0]\"\r\n            isRequired=\"true\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 2\"\r\n            placeholder=\"Insira a opção 2\"\r\n            [(value)]=\"options[1]\"\r\n            isRequired=\"true\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 3\"\r\n            placeholder=\"Insira a opção 3\"\r\n            [(value)]=\"options[2]\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 4\"\r\n            placeholder=\"Insira a opção 4\"\r\n            [(value)]=\"options[3]\"\r\n        ></custom-input>\r\n\r\n        <button type='submit'>Enviar</button>\r\n        <button (click)=\"canceled.emit()\">Cancelar</button>\r\n    </form>\r\n</div>"
+            "templateData": "<div>\r\n    <form #votingForm=\"ngForm\" (ngSubmit)=\"votingForm.form.valid && onSubmit()\">\r\n        <custom-input\r\n            label=\"Título\"\r\n            name=\"title\"\r\n            placeholder=\"Insira o título da votação\"\r\n            [(value)]=\"data.title\"\r\n            isRequired=\"true\"\r\n            minlength=3\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 1\"\r\n            placeholder=\"Insira a opção 1\"\r\n            [(value)]=\"data.options[0]\"\r\n            isRequired=\"true\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 2\"\r\n            placeholder=\"Insira a opção 2\"\r\n            [(value)]=\"data.options[1]\"\r\n            isRequired=\"true\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 3\"\r\n            placeholder=\"Insira a opção 3\"\r\n            [(value)]=\"data.options[2]\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 4\"\r\n            placeholder=\"Insira a opção 4\"\r\n            [(value)]=\"data.options[3]\"\r\n        ></custom-input>\r\n\r\n        <button type='submit'>Enviar</button>\r\n        <button (click)=\"canceled.emit()\">Cancelar</button>\r\n    </form>\r\n</div>"
         },
         {
             "name": "VotingResultComponent",
@@ -798,6 +791,22 @@
     "miscellaneous": {
         "variables": [
             {
+                "name": "Blank",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-form/voting-form.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/votings/votings.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -825,17 +834,9 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/voting-card/voting-card.stories.ts",
-                "type": "Story<VotingCardComponent>",
-                "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/voting-result/voting-result.stories.ts",
-                "type": "Story<VotingResultComponent>",
-                "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+                "file": "src/app/input/input.stories.ts",
+                "type": "Story<InputComponent>",
+                "defaultValue": "(args: InputComponent) => ({\r\n    component: InputComponent,\r\n    props: args,\r\n})"
             },
             {
                 "name": "Template",
@@ -846,10 +847,42 @@
                 "defaultValue": "(args: VotingBoothComponent) => ({\r\n    component: VotingBoothComponent,\r\n    props: args,\r\n})"
             },
             {
-                "name": "YesNo",
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-card/voting-card.stories.ts",
+                "type": "Story<VotingCardComponent>",
+                "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-form/voting-form.stories.ts",
+                "type": "Story<VotingFormComponent>",
+                "defaultValue": "(args: VotingFormComponent) => ({\r\n    component: VotingFormComponent,\r\n    props: args,\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/votings/votings.stories.ts",
+                "type": "Story<VotingsComponent>",
+                "defaultValue": "(args: VotingsComponent) => ({\r\n    component: VotingsComponent,\r\n    props: args,\r\n})"
+            },
+            {
+                "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-result/voting-result.stories.ts",
+                "type": "Story<VotingResultComponent>",
+                "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+            },
+            {
+                "name": "Title",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/input/input.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -860,12 +893,56 @@
                 "file": "src/app/voting-booth/voting-booth.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "YesNo",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/voting-result/voting-result.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             }
         ],
         "functions": [],
         "typealiases": [],
         "enumerations": [],
         "groupedVariables": {
+            "src/app/voting-form/voting-form.stories.ts": [
+                {
+                    "name": "Blank",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-form/voting-form.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-form/voting-form.stories.ts",
+                    "type": "Story<VotingFormComponent>",
+                    "defaultValue": "(args: VotingFormComponent) => ({\r\n    component: VotingFormComponent,\r\n    props: args,\r\n})"
+                }
+            ],
+            "src/app/votings/votings.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/votings/votings.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/votings/votings.stories.ts",
+                    "type": "Story<VotingsComponent>",
+                    "defaultValue": "(args: VotingsComponent) => ({\r\n    component: VotingsComponent,\r\n    props: args,\r\n})"
+                }
+            ],
             "src/environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -904,20 +981,20 @@
                     "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n})"
                 }
             ],
-            "src/app/voting-result/voting-result.stories.ts": [
+            "src/app/input/input.stories.ts": [
                 {
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/voting-result/voting-result.stories.ts",
-                    "type": "Story<VotingResultComponent>",
-                    "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+                    "file": "src/app/input/input.stories.ts",
+                    "type": "Story<InputComponent>",
+                    "defaultValue": "(args: InputComponent) => ({\r\n    component: InputComponent,\r\n    props: args,\r\n})"
                 },
                 {
-                    "name": "YesNo",
+                    "name": "Title",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/voting-result/voting-result.stories.ts",
+                    "file": "src/app/input/input.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 }
@@ -936,6 +1013,24 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-booth/voting-booth.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
+            ],
+            "src/app/voting-result/voting-result.stories.ts": [
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-result/voting-result.stories.ts",
+                    "type": "Story<VotingResultComponent>",
+                    "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+                },
+                {
+                    "name": "YesNo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/voting-result/voting-result.stories.ts",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 }
@@ -966,6 +1061,26 @@
                 "name": "InputComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/input/input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/input/input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Title",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1032,7 +1147,7 @@
                 "linktype": "component",
                 "name": "VotingFormComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -1042,6 +1157,26 @@
                 "name": "VotingType",
                 "coveragePercent": 0,
                 "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/voting-form/voting-form.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Blank",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/voting-form/voting-form.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1089,6 +1224,26 @@
                 "name": "VotingsComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/votings/votings.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/votings/votings.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
