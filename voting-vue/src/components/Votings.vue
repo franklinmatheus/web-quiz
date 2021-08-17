@@ -1,9 +1,15 @@
 <template>
   <div v-if="state === 'open'">
+    <VotingCard :title="votings[current].title" :state="votings[current].state" :votes="votings[current].votes" />
     <button @click="goBack()">Voltar</button>
   </div>
   <div v-else-if="state === 'new' || state === 'edit'">
     <h1>Formulário de votação</h1>
+    <VotingForm 
+      :voting="votings[current]" 
+      @canceled="cancelChanges"
+      @updated="updateChanges"
+    />
   </div>
   <div v-else-if="state === 'listing'">
     <h1>Votações</h1>
@@ -22,48 +28,65 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref } from "vue"
+import VotingCard from "./VotingCard.vue"
+import VotingForm from "./VotingForm.vue"
 
 import {
   votings,
   createVoting,
   updateVoting,
   deleteVoting,
-} from "../api/votings";
+} from "../api/votings"
 
 export default {
-  components: {},
-  data: () => ({
-    state: ref("listing"),
-    current: ref(0),
-  }),
-  methods: {
-    newVoting() {
-      createVoting();
-      this.current.value = votings.length - 1;
-      this.state.value = "new";
-    },
-    editVoting(index) {
-      this.current.value = index;
-      this.state.value = "edit";
-    },
-    removeVoting(index) {
-      deleteVoting(index);
-    },
-    openVoting(index) {
-      this.current.value = index;
-      this.state.value = "open";
-    },
-    updateChanges(voting) {
-      updateVoting(voting, this.current.value);
-    },
-    cancelChanges() {
-      if (this.state.value === "new") deleteVoting(votings.length - 1);
-      this.state.value = "listing";
-    },
-    goBack() {
-      this.state.value = "listing";
-    },
+  components: {
+    VotingCard,
+    VotingForm
   },
-};
+  setup: () => {
+    const state = ref("listing")
+    const current = ref(0)
+    
+    const newVoting = () => {
+      createVoting()
+      current.value = votings.length - 1
+      state.value = "new"
+    }
+    const editVoting = (index) => {
+      current.value = index
+      state.value = "edit"
+    }
+    const removeVoting = (index) => {
+      deleteVoting(index)
+    }
+    const openVoting = (index) => {
+      current.value = index
+      state.value = "open"
+    }
+    const updateChanges = (voting) => {
+      updateVoting(voting, current.value)
+      state.value = "listing"
+    }
+    const cancelChanges = () => {
+      if (state.value === "new") deleteVoting(votings.length - 1)
+      state.value = "listing"
+    }
+    const goBack = () => { state.value = "listing" }
+
+    return {
+      votings,
+      state,
+      current,
+      newVoting,
+      editVoting,
+      removeVoting,
+      openVoting,
+      updateVoting,
+      updateChanges,
+      cancelChanges,
+      goBack
+    }
+  },
+}
 </script>

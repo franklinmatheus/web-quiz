@@ -12,10 +12,12 @@ export default {
     }
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
     components: { VotingCard },
-    template: '<VotingCard v-bind="$props" />'
+    setup() {
+        return { args }
+    },
+    template: '<VotingCard v-bind="args" />'
 })
 
 

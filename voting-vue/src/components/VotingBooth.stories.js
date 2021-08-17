@@ -5,10 +5,12 @@ export default {
     component: VotingBooth
 }
 
-const Template = (args, { argTypes }) => ({
-    props: Object.keys(argTypes),
+const Template = (args) => ({
     components: { VotingBooth },
-    template: '<VotingBooth v-bind="$props" />'
+    setup() {
+        return { args }
+    },
+    template: '<VotingBooth v-bind="args" />'
 })
 
 export const YesNo = Template.bind({})

@@ -20,7 +20,7 @@ const defaultValue = [
     },
 ]
 
-const votings = reactive([defaultValue])
+export const votings = reactive(defaultValue)
 
 export function createVoting() {
   votings.push({title:'',state:'open',votes:[]})

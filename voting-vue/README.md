@@ -1,23 +1,24 @@
-## Voting Vue
+# voting-vue-new
 
-1.  **Install the dependencies.**
+## Project setup
+```
+yarn install
+```
 
-    Just:
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
 
-    ```shell
-    # Go to the directory
-    cd quiz-vue/
+### Compiles and minifies for production
+```
+yarn build
+```
 
-    # Install the dependencies
-    yarn install
-    ```
+### Lints and fixes files
+```
+yarn lint
+```
 
-2.  **Run the vue project!**
-
-    Run `yarn serve` and go to `http://localhost:8080`
-
-3.  **Check out the stories!**
-
-    Run `yarn storybook` and go to `http://localhost:6006`
-
-    Check out the Storybook by clicking [here](https://60f3a24f70fd860039dc8f9d-ezzlnohwqs.chromatic.com).
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

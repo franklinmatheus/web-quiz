@@ -1,102 +1,142 @@
 <template>
     <form @submit.prevent="onSubmit">
-        <h2>Edita questão</h2>
         <Input
-            label="Título"
-            v-model="qst.statement"
-            placeholder="Digite o enunciado da questão"
-            isRequired="true"
-            :error="errors['statement']"
-            @input="touched['statement'] = true"
-            @blur="checkField('statement')"
+          label="Título"
+          v-model="data.title"
+          placeholder="Insira o título"
+          isRequired="true"
+          :error="errors['title']"
+          @input="touched['title'] = true"
+          @validate="validate('title','Título')"
         />
+        
         <Input
-            label="Opção 1"
-            v-model="qst.option1"
-            placeholder="Digite a 1ª opção"
-            isRequired="true"
-            :error="errors['option1']"
-            @input="touched['option1'] = true"
-            @blur="checkField('option1')"
+          label="Opção 1"
+          v-model="data.options[0]"
+          placeholder="Insira a opção 1"
+          isRequired="true"
+          :error="errors['option1']"
+          @input="touched['option1'] = true"
+          @validate="validate('option1','Opção 1')"
         />
+
         <Input
-            label="Opção 2"
-            v-model="qst.option2"
-            placeholder="Digite a 2ª opção"
-            isRequired="true"
-            :error="errors['option2']"
-            @input="touched['option2'] = true"
-            @blur="checkField('option2')"
+          label="Opção 2"
+          v-model="data.options[1]"
+          placeholder="Insira a opção 2"
+          isRequired="true"
+          :error="errors['option2']"
+          @input="touched['option2'] = true"
+          @validate="validate('option2','Opção 2')"
         />
+
         <Input
-            label="Opção 3"
-            v-model="qst.option3"
-            placeholder="Digite a 3ª opção"
-            :error="errors['option3']"
-            @input="touched['option3'] = true"
-            @blur="checkField('option3')"
+          label="Opção 3"
+          v-model="data.options[2]"
+          placeholder="Insira a opção 3"
+          :error="errors['option3']"
+          @input="touched['option3'] = true"
+          @validate="validate('option3','Opção 3')"
         />
+
         <Input
-            label="Opção 4"
-            v-model="qst.option4"
-            placeholder="Digite a 4ª opção"
-            :error="errors['option4']"
-            @input="touched['option4'] = true"
-            @blur="checkField('option4')"
+          label="Opção 4"
+          v-model="data.options[3]"
+          placeholder="Insira a opção 4"
+          :error="errors['option4']"
+          @input="touched['option4'] = true"
+          @validate="validate('option4','Opção 4')"
         />
-        <input type="submit" value="Atualizar" />
-        <button @click="$emit('cancel')" type="button">Cancelar</button>
+        
+        <button type="submit">Enviar</button>
+        <button @click="$emit('canceled')" type="button">Cancelar</button>
     </form>
 </template>
 
 <script>
-import Input from './Input.vue'
-import { minLengthValidation, requiredValidation } from './validations'
 
-const validate = {
-  statement: (value) => minLengthValidation(3, value),
-  option1: requiredValidation,
-  option2: requiredValidation
-}
+import { reactive } from 'vue'
+
+import Input from './Input.vue'
+import { minLength, required } from '../form/validation'
 
 export default {
-  components: { Input },
-  props: ['question'],
-  data() {
-    const { statement, options } = this.question || {}
-    const [option1, option2, option3, option4] = options || []
-    return {
-      qst: { statement, option1, option2, option3, option4 },
-      errors: {},
-      touched: {}
-    }
+  components: { 
+    Input 
   },
-  methods: {
-    checkField(name) {
-      const value = this.qst[name]
-      const error = validate[name] ? validate[name](value) : null
-      const nameError = this.touched[name] ? error : null
-      this.errors[name] = nameError
-    },
-    onSubmit() {
-      Object.keys(this.qst).forEach((field) => {
-        this.touched[field] = true
-        this.checkField(field)
+  props: ['voting'],
+  setup: (props) => {
+    const data = {title: props.voting.title || '',options:['','','','']}
+    props.voting.votes.forEach((element,index) => {
+      data.options[index] = element.option
+    })
+    
+    const errors = reactive({})
+    const touched = reactive({})
+    
+    function onSubmit() {
+      const labels = {
+       'title':'Título',
+       'option1':'Opção 1',
+       'option2':'Opção 2',
+       'option3':'Opção 3',
+       'option4':'Opção 4'
+      };
+
+      ['title','option1','option2','option3','option4'].filter(input => {
+        this.touched[input] = true
+        this.validate(input,labels[input])
+        return errors[input] == null ? 0 : 1
       })
-      const errorsIsEmpty = !Object.values(this.errors).some((v) => v)
-      if (errorsIsEmpty) {
-        const options = [
-          this.qst.option1,
-          this.qst.option2,
-          this.qst.option3,
-          this.qst.option4
-        ].filter((o) => o && o.trim() !== '')
-        this.$emit('update', {
-          statement: this.qst.statement,
-          options
-        })
+
+      const valid = !Object.values(this.errors).some((value) => value)
+      console.log(errors)
+      if(valid) {
+        const tempVoting = {
+          title: this.data.title,
+          state: props.voting.state,
+          votes: this.data.options.map(
+            (option) => { 
+                return {option:option,count:0}
+            }).filter(
+                (item) => item.option.trim() !== ''
+            )
+        }
+        this.$emit('updated',tempVoting)
+      } 
+    }
+
+    function validate(name,label) {
+      if (name == 'title') {
+        const error = required(label,this.data.title) || 
+                      minLength(label,5,this.data.title)
+        errors[name] = this.touched[name] ? error : null
+      } else {
+        const tempMap = {
+          'option1':this.data.options[0],
+          'option2':this.data.options[1],
+          'option3':this.data.options[2],
+          'option4':this.data.options[3]
+        }
+
+        if (name == 'option1' || name == 'option2') {
+          const error = required(label,tempMap[name]) 
+                        || minLength(label,2,tempMap[name])
+          errors[name] = this.touched[name] ? error : null
+        } else {
+          const error = minLength(label,2,tempMap[name])
+          errors[name] = this.touched[name] ? error : null
+        } 
       }
     }
-  }
+
+    return {
+      data,
+      errors,
+      touched,
+      onSubmit,
+      validate
+    }
+  },
 }
 </script>

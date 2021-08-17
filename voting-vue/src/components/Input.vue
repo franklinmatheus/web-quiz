@@ -1,8 +1,7 @@
 <template>
   <div class="form-item">
-    <label>
-      {{ label }}
-      <span v-if="isRequired" style="color: red">*</span>
+    <label class="label">
+      {{ label }}<span v-if="isRequired" style="color: red">*</span>
     </label>
     <div>
       <input
@@ -10,7 +9,7 @@
         :placeholder="placeholder"
         :value="modelValue"
         @change="$emit('update:modelValue', $event.target.value)"
-        @blur="$emit('blur', name)"
+        @blur="$emit('validate', name)"
       />
       <div class="error">{{ error }}</div>
     </div>
