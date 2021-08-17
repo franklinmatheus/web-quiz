@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
         [state]="state"
         [votes]="votes"
       ></voting-card>
+      <votings></votings>
     </div>
   `
 })

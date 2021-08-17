@@ -1,0 +1,22 @@
+<div class="form-item">
+    <label class="label">
+        {{ label }}
+        <span *ngIf="isRequired" style="color: 'red'">*</span>
+    </label>
+
+    <div>
+        <input
+            #inputField="ngModel"
+            type="text"
+            [name]="name"
+            [placeholder]="placeholder"
+            [required]="isRequired"
+            [(ngModel)]="value"
+            (change)="changed.emit(inputField.value)"
+            (blur)="changed.emit(inputField.value)"
+            [minlength]="minlength"
+        />
+        
+        <div class="error">{{ error(inputField) }}</div>
+    </div>
+</div>

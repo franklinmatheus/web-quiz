@@ -1,0 +1,32 @@
+<div *ngIf="state === 'open'">
+    <voting-card 
+        [title]='votingsService.votings[current].title'
+        [state]='votingsService.votings[current].state'
+        [votes]='votingsService.votings[current].votes'
+    ></voting-card>
+    <button (click)='goBack()'>Voltar</button>
+</div>
+
+<div *ngIf="state === 'new' || state === 'edit'">
+    <h1>Formulário de votação</h1>
+    <voting-form
+        [voting]="votingsService.votings[current]"
+        (updated)="updateChanges($event)"
+        (canceled)="cancelChanges($event)"
+    ></voting-form>
+</div>
+
+<div *ngIf="state === 'listing'">
+    <h1>Votações</h1>
+    <p><button (click)="newVoting()">Nova votação</button></p>
+    <p class='vote' *ngFor='let voting of votingsService.votings; index as i'>
+        {{ voting.title }}
+        <span class='option' *ngFor='let option of voting.votes, index as i'>
+            {{ option.option }} ({{ option.count }})
+        </span>
+        <br/>
+        <button class='listing' (click)="editVoting(i)">Editar</button>
+        <button class='listing' (click)="removeVoting(i)">Remover</button>
+        <button class='listing' (click)="openVoting(i)">Abrir</button>
+    </p>
+</div>

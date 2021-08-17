@@ -1,0 +1,41 @@
+<div>
+    <form #votingForm="ngForm" (ngSubmit)="votingForm.form.valid && onSubmit()">
+        <custom-input
+            label="Título"
+            name="title"
+            placeholder="Insira o título da votação"
+            [(value)]="title"
+            isRequired="true"
+            minlength=3
+        ></custom-input>
+
+        <custom-input
+            label="Opção 1"
+            placeholder="Insira a opção 1"
+            [(value)]="options[0]"
+            isRequired="true"
+        ></custom-input>
+
+        <custom-input
+            label="Opção 2"
+            placeholder="Insira a opção 2"
+            [(value)]="options[1]"
+            isRequired="true"
+        ></custom-input>
+
+        <custom-input
+            label="Opção 3"
+            placeholder="Insira a opção 3"
+            [(value)]="options[2]"
+        ></custom-input>
+
+        <custom-input
+            label="Opção 4"
+            placeholder="Insira a opção 4"
+            [(value)]="options[3]"
+        ></custom-input>
+
+        <button type='submit'>Enviar</button>
+        <button (click)="canceled.emit()">Cancelar</button>
+    </form>
+</div>
