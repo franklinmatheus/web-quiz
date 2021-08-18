@@ -6,7 +6,7 @@
 
     ```shell
     # Go to the directory
-    cd quiz-angular/
+    cd voting-angular/
 
     # Install the dependencies
     yarn
@@ -20,4 +20,5 @@
 
     Run `yarn storybook` and go to `http://localhost:6006`
     
-    Check out the Storybook by clicking [here](https://60f39e33714a7300396a5219-nflsfcqvho.chromatic.com).
+    Check out the Storybook by clicking [here](https://60f39e33714a7300396a5219-tjpmguyyke.chromatic.com).
+                                               
