@@ -1,9 +1,13 @@
 <script>
+    import { createEventDispatcher } from 'svelte'
+
     export let value = ''
     export let label = ''
     export let placeholder = ''
     export let isRequired = false
     export let error = ''
+
+    const dispatcher = createEventDispatcher()
 </script>
 
 <main>
@@ -17,10 +21,13 @@
                 type="text"
                 placeholder={placeholder}
                 bind:value={value}
-                on:input
-                on:blur
+                on:input={event => dispatcher('validate')}
+                on:blur={event => dispatcher('validate')}
+                on:change={event => dispatcher('validate')}
             />
-            <div class="error">{{ error }}</div>
+            {#if error}
+                <div class="error">{ error }</div>
+            {/if}
         </div>
     </div>
 </main>
