@@ -1,15 +1,11 @@
 <script>
 	import './app.css'
-	import VotingCard from './VotingCard.svelte'
-
-	let title = 'Pink Floyd é a melhor banda de Rock britânica?'
-    let votes = [{ option: 'Sim', count: 10 },{ option: 'Não', count: 2 }]
-	let state = 'open'
+	import Votings from './Votings.svelte'
 </script>
 
 <main>
 	<div>
-		<VotingCard title={ title } votes={ votes } state={ state } />
+		<Votings />
 	</div>
 </main>
 
