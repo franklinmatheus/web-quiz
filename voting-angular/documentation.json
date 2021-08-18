@@ -3,35 +3,43 @@
     "interfaces": [
         {
             "name": "VotingType",
-            "id": "interface-VotingType-f3d358a53ed67dbf619e76b4f9668fc5",
+            "id": "interface-VotingType-a82bf6ae36b5f7846c0260eb0518b7f4",
             "file": "src/app/voting-form/voting-form.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    data\r\n\r\n    ngOnInit() {\r\n        this.data = {title:'',options:[]}\r\n        this.data.title = this.voting.title || ''\r\n        this.data.options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => this.data.options[index] = value['option'])\r\n    }\r\n\r\n    onSubmit() {\r\n        let tempVotes = this.data.options.map(\r\n            (option) => { \r\n                return {option:option,count:0}\r\n            }).filter(\r\n                (item) => item.option.trim() !== ''\r\n            )\r\n        \r\n        this.voting.title = this.data.title\r\n        this.voting.votes = tempVotes\r\n\r\n        this.updated.emit(this.voting)\r\n    }\r\n}",
+            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\nimport * as yup from 'yup'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    data\r\n    errors\r\n\r\n    schema = yup.object().shape({\r\n        title: yup.string()\r\n            .test('len', 'Título deve ter pelo menos 5 caracteres', val => val.length >= 5)\r\n            .required(\"Título é obrigatório\"),\r\n        option1: yup.string()\r\n            .test('len', 'Opção 1 deve ter pelo menos 2 caracteres', val => val.length >= 2)\r\n            .required(\"Opção 1 é obrigatória\"),\r\n        option2: yup.string()\r\n            .test('len', 'Opção 2 deve ter pelo menos 2 caracteres', val => val.length >= 2)\r\n            .required(\"Opção 2 é obrigatória\"),\r\n        option3: yup.string()\r\n            .test('len', 'Opção 3 deve ter pelo menos 2 caracteres', val => val.length == 0 || val.length >= 2),\r\n        option4: yup.string()\r\n            .test('len', 'Opção 4 deve ter pelo menos 2 caracteres', val => val.length == 0 || val.length >= 2)\r\n    })\r\n\r\n    extractErrors ({inner}) {\r\n        return inner.reduce((acc, err) => {\r\n            return { ...acc, [err.path]: err.message }\r\n        }, {})\r\n    }\r\n\r\n    validate() {\r\n        this.schema\r\n            .validate(this.data, { abortEarly: false })\r\n            .then(() => this.errors = {})\r\n            .catch(err => this.errors = this.extractErrors(err))\r\n    }\r\n    \r\n    ngOnInit() {\r\n        this.data = {}\r\n        this.errors = {}\r\n        this.data.title = this.voting.title || ''\r\n        const options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => options[index] = value['option'])\r\n        this.data.option1 = options[0]\r\n        this.data.option2 = options[1]\r\n        this.data.option3 = options[2]\r\n        this.data.option4 = options[3]\r\n    }\r\n\r\n    onSubmit() {\r\n        this.schema\r\n            .validate(this.data, { abortEarly: false })\r\n            .then(() => {\r\n                let tempVotes = [\r\n                    this.data.option1,\r\n                    this.data.option2,\r\n                    this.data.option3,\r\n                    this.data.option4\r\n                ].map(\r\n                    (option) => { \r\n                        return {option:option,count:0}\r\n                    }).filter(\r\n                        (item) => item.option.trim() !== ''\r\n                    )\r\n            \r\n                this.updated.emit(\r\n                    {\r\n                        title:this.data.title,\r\n                        state:this.voting.state,\r\n                        votes:tempVotes\r\n                    }\r\n                )\r\n            }).catch(err => {\r\n                this.errors = this.extractErrors(err)\r\n            })\r\n    }\r\n}",
             "properties": [
                 {
                     "name": "state",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
                     "optional": false,
                     "description": "",
                     "line": 5
                 },
                 {
-                    "name": "title",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 4
-                },
-                {
                     "name": "votes",
-                    "type": "",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
                     "optional": false,
                     "description": "",
-                    "line": 6
+                    "line": 7
                 }
             ],
             "indexSignatures": [],
-            "kind": 150,
+            "kind": 163,
             "methods": []
         }
     ],
@@ -44,6 +52,8 @@
                 {
                     "name": "votings",
                     "defaultValue": "[\r\n        { \r\n            title:'Pink Floyd é a melhor banda de Rock britânica?',\r\n            state:'open',\r\n            votes: [\r\n                {'option':'Sim','count':10},\r\n                {'option':'Não','count':2}\r\n            ] \r\n        },\r\n        { \r\n            title:'Segunda votação?',\r\n            state:'open',\r\n            votes: [\r\n                {'option':'Sim','count':10},\r\n                {'option':'Não','count':2},\r\n                {'option':'Talvez','count':2}\r\n            ] \r\n        },\r\n    ]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "[]",
                     "optional": false,
                     "description": "",
@@ -57,24 +67,32 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27
+                    "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "deleteVoting",
                     "args": [
                         {
                             "name": "index",
-                            "type": ""
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 39,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "index",
                             "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -86,21 +104,29 @@
                     "args": [
                         {
                             "name": "voting",
-                            "type": ""
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         },
                         {
                             "name": "index",
-                            "type": ""
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "voting",
                             "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -108,6 +134,8 @@
                         {
                             "name": "index",
                             "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -115,17 +143,22 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "description": "",
+            "rawdescription": "\n",
             "sourceCode": "import { Injectable } from '@angular/core'\r\n\r\n@Injectable({providedIn:'root'})\r\nexport class VotingsService {\r\n  \r\n    votings = \r\n    [\r\n        { \r\n            title:'Pink Floyd é a melhor banda de Rock britânica?',\r\n            state:'open',\r\n            votes: [\r\n                {'option':'Sim','count':10},\r\n                {'option':'Não','count':2}\r\n            ] \r\n        },\r\n        { \r\n            title:'Segunda votação?',\r\n            state:'open',\r\n            votes: [\r\n                {'option':'Sim','count':10},\r\n                {'option':'Não','count':2},\r\n                {'option':'Talvez','count':2}\r\n            ] \r\n        },\r\n    ]\r\n\r\n    createVoting() {\r\n        this.votings = [...this.votings, {title:'',state:'open',votes:[]}]\r\n    }\r\n\r\n    updateVoting(voting, index) {\r\n        this.votings = [\r\n        ...this.votings.slice(0, index),\r\n        voting,\r\n        ...this.votings.slice(index + 1)\r\n        ]\r\n    }\r\n\r\n    deleteVoting(index) {\r\n        this.votings = [...this.votings.slice(0, index),...this.votings.slice(index + 1)]\r\n    }\r\n}\r\n",
             "type": "injectable"
         }
     ],
+    "guards": [],
+    "interceptors": [],
     "classes": [],
     "directives": [],
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-8121ff15d7e8f5f5c88a40abe4672310",
+            "id": "component-AppComponent-17e765926ae4402e6a924f18959f981d",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -135,51 +168,28 @@
             "selector": "app-root",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n  <voting-card\n    [title]=\"title\"\n    [state]=\"state\"\n    [votes]=\"votes\"\n  ></voting-card>\n  <votings></votings>\n</div>\n",
+            "template": "<div>\n  <votings></votings>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "state",
-                    "defaultValue": "'open'",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 19
-                },
-                {
-                    "name": "title",
-                    "defaultValue": "'Pink Floyd é a melhor banda de Rock britânica?'",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 18
-                },
-                {
-                    "name": "votes",
-                    "defaultValue": "[{'option':'Sim','count':10},{'option':'Não','count':2}]",
-                    "type": "[]",
-                    "optional": false,
-                    "description": "",
-                    "line": 20
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <div>\n      <voting-card \n        [title]=\"title\" \n        [state]=\"state\"\n        [votes]=\"votes\"\n      ></voting-card>\n      <votings></votings>\n    </div>\n  `\n})\n\nexport class AppComponent {\n  title = 'Pink Floyd é a melhor banda de Rock britânica?'\n  state = 'open'\n  votes = [{'option':'Sim','count':10},{'option':'Não','count':2}]\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <div>\n      <votings></votings>\n    </div>\n  `\n})\n\nexport class AppComponent {\n  \n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
         },
         {
             "name": "InputComponent",
-            "id": "component-InputComponent-791e43c0243e77d40de9df6d6696b90b",
+            "id": "component-InputComponent-f48e203ceed6f5fd689e814488b47004",
             "file": "src/app/input/input.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -195,62 +205,117 @@
             "viewProviders": [],
             "inputsClass": [
                 {
+                    "name": "error",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "string"
+                },
+                {
                     "name": "isRequired",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 14,
                     "type": "boolean"
                 },
                 {
                     "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 10,
                     "type": "string"
                 },
                 {
                     "name": "minlength",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 15,
                     "type": "number"
                 },
                 {
                     "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 11,
                     "type": "string"
                 },
                 {
                     "name": "placeholder",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 13,
                     "type": "string"
                 },
                 {
                     "name": "value",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 12,
                     "type": "string"
                 }
             ],
             "outputsClass": [
                 {
-                    "name": "changed",
+                    "name": "valueChange",
                     "defaultValue": "new EventEmitter<string>()",
-                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 18,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [],
             "methodsClass": [
                 {
-                    "name": "error",
+                    "name": "errors",
                     "args": [
                         {
                             "name": "elm",
-                            "type": "NgModel"
+                            "type": "NgModel",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 19,
+                    "line": 20,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "elm",
                             "type": "NgModel",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "temp",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -258,16 +323,18 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core'\r\nimport { NgModel } from '@angular/forms'\r\n\r\n@Component({\r\n    selector: 'custom-input',\r\n    templateUrl: './input.component.html'\r\n})\r\n\r\nexport class InputComponent {\r\n    @Input() label: string\r\n    @Input() name: string\r\n    @Input() value: string\r\n    @Input() placeholder: string\r\n    @Input() isRequired: boolean\r\n    @Input() minlength?: number\r\n\r\n    @Output() changed = new EventEmitter<string>()\r\n\r\n    error(elm: NgModel) {\r\n        if (elm.invalid && elm.touched) {\r\n            if (elm.errors.required) return 'Campo obrigatório'\r\n            if (elm.errors.minlength)\r\n                return this.label + ' deve ter pelo menos ' + this.minlength + ' caracteres'\r\n        }\r\n    }\r\n}",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core'\r\nimport { NgModel } from '@angular/forms'\r\n\r\n@Component({\r\n    selector: 'custom-input',\r\n    templateUrl: './input.component.html'\r\n})\r\n\r\nexport class InputComponent {\r\n    @Input() label: string\r\n    @Input() name: string\r\n    @Input() value: string\r\n    @Input() placeholder: string\r\n    @Input() isRequired: boolean\r\n    @Input() minlength?: number\r\n    @Input() error: string\r\n\r\n    @Output() valueChange = new EventEmitter<string>()\r\n\r\n    errors(elm: NgModel) {\r\n        if (elm.invalid && elm.touched) {\r\n            if (elm.errors.required) return 'Campo obrigatório'\r\n            if (elm.errors.minlength)\r\n                return this.label + ' deve ter pelo menos ' + this.minlength + ' caracteres'\r\n        }\r\n    }\r\n\r\n    temp(value) {\r\n        console.log(value) \r\n        console.log(this.value)\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "<div class=\"form-item\">\r\n    <label class=\"label\">\r\n        {{ label }}\r\n        <span *ngIf=\"isRequired\" style=\"color: 'red'\">*</span>\r\n    </label>\r\n\r\n    <div>\r\n        <input\r\n            #inputField=\"ngModel\"\r\n            type=\"text\"\r\n            [name]=\"name\"\r\n            [placeholder]=\"placeholder\"\r\n            [required]=\"isRequired\"\r\n            [(ngModel)]=\"value\"\r\n            (change)=\"changed.emit(inputField.value)\"\r\n            (blur)=\"changed.emit(inputField.value)\"\r\n            [minlength]=\"minlength\"\r\n        />\r\n        \r\n        <div class=\"error\">{{ error(inputField) }}</div>\r\n    </div>\r\n</div>"
+            "templateData": "<div class=\"form-item\">\r\n    <label class=\"label\">\r\n        {{ label }}\r\n        <span *ngIf=\"isRequired\" style=\"color: 'red'\">*</span>\r\n    </label>\r\n\r\n    <div>\r\n        <input\r\n            #inputField=\"ngModel\"\r\n            type=\"text\"\r\n            [name]=\"name\"\r\n            [placeholder]=\"placeholder\"\r\n            [required]=\"isRequired\"\r\n            [(ngModel)]=\"value\"\r\n            [value]=\"value\"\r\n            (change)=\"valueChange.emit(inputField.value)\"\r\n            (input)=\"valueChange.emit(inputField.value)\"\r\n            (blur)=\"valueChange.emit(inputField.value)\"\r\n            [minlength]=\"minlength\"\r\n        />\r\n        \r\n        <div class=\"error\">{{ error }}</div>\r\n    </div>\r\n</div>"
         },
         {
             "name": "VotingBoothComponent",
@@ -288,6 +355,8 @@
             "inputsClass": [
                 {
                     "name": "options",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 9,
                     "type": "literal type[]"
                 }
@@ -296,16 +365,20 @@
                 {
                     "name": "vote",
                     "defaultValue": "new EventEmitter<number>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 10,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [],
             "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\n\n@Component({\n  selector: 'voting-booth',\n  templateUrl: './voting-booth.component.html'\n})\n\nexport class VotingBoothComponent {\n  @Input() options: {}[]\n  @Output() vote = new EventEmitter<number>()\n  constructor() { }\n}\n",
             "assetsDirs": [],
@@ -314,6 +387,8 @@
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "args": [],
                 "line": 10
             },
@@ -338,16 +413,22 @@
             "inputsClass": [
                 {
                     "name": "state",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 10,
                     "type": "string"
                 },
                 {
                     "name": "title",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 9,
                     "type": "string"
                 },
                 {
                     "name": "votes",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 11,
                     "type": "literal type[]"
                 }
@@ -360,17 +441,23 @@
                     "args": [
                         {
                             "name": "voteIndex",
-                            "type": "number"
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 14,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "voteIndex",
                             "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -378,10 +465,12 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'voting-card',\n  templateUrl: './voting-card.component.html'\n})\n\nexport class VotingCardComponent {\n  @Input() title: string\n  @Input() state: string\n  @Input() votes: {}[]\n  constructor() { }\n\n  vote(voteIndex: number) {\n    this.votes[voteIndex]['count'] = this.votes[voteIndex]['count'] + 1\n    this.state = 'closed'\n  }\n}\n",
             "assetsDirs": [],
@@ -390,6 +479,8 @@
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "args": [],
                 "line": 11
             },
@@ -397,7 +488,7 @@
         },
         {
             "name": "VotingFormComponent",
-            "id": "component-VotingFormComponent-f3d358a53ed67dbf619e76b4f9668fc5",
+            "id": "component-VotingFormComponent-a82bf6ae36b5f7846c0260eb0518b7f4",
             "file": "src/app/voting-form/voting-form.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -414,7 +505,9 @@
             "inputsClass": [
                 {
                     "name": "voting",
-                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
                     "type": "VotingType"
                 }
             ],
@@ -422,33 +515,86 @@
                 {
                     "name": "canceled",
                     "defaultValue": "new EventEmitter()",
-                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 18,
                     "type": "EventEmitter"
                 },
                 {
                     "name": "updated",
                     "defaultValue": "new EventEmitter()",
-                    "line": 18,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 19,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [
                 {
                     "name": "data",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 20
+                    "line": 21
+                },
+                {
+                    "name": "errors",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "schema",
+                    "defaultValue": "yup.object().shape({\r\n        title: yup.string()\r\n            .test('len', 'Título deve ter pelo menos 5 caracteres', val => val.length >= 5)\r\n            .required(\"Título é obrigatório\"),\r\n        option1: yup.string()\r\n            .test('len', 'Opção 1 deve ter pelo menos 2 caracteres', val => val.length >= 2)\r\n            .required(\"Opção 1 é obrigatória\"),\r\n        option2: yup.string()\r\n            .test('len', 'Opção 2 deve ter pelo menos 2 caracteres', val => val.length >= 2)\r\n            .required(\"Opção 2 é obrigatória\"),\r\n        option3: yup.string()\r\n            .test('len', 'Opção 3 deve ter pelo menos 2 caracteres', val => val.length == 0 || val.length >= 2),\r\n        option4: yup.string()\r\n            .test('len', 'Opção 4 deve ter pelo menos 2 caracteres', val => val.length == 0 || val.length >= 2)\r\n    })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "extractErrors",
+                    "args": [
+                        {
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 40,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22
+                    "line": 53,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "onSubmit",
@@ -456,22 +602,36 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29
+                    "line": 65,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "validate",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 46,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    data\r\n\r\n    ngOnInit() {\r\n        this.data = {title:'',options:[]}\r\n        this.data.title = this.voting.title || ''\r\n        this.data.options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => this.data.options[index] = value['option'])\r\n    }\r\n\r\n    onSubmit() {\r\n        let tempVotes = this.data.options.map(\r\n            (option) => { \r\n                return {option:option,count:0}\r\n            }).filter(\r\n                (item) => item.option.trim() !== ''\r\n            )\r\n        \r\n        this.voting.title = this.data.title\r\n        this.voting.votes = tempVotes\r\n\r\n        this.updated.emit(this.voting)\r\n    }\r\n}",
+            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\r\nimport * as yup from 'yup'\r\n\r\ninterface VotingType {\r\n    title: string\r\n    state: boolean\r\n    votes: []\r\n  }\r\n\r\n@Component({\r\n    selector: 'voting-form',\r\n    templateUrl: './voting-form.component.html'\r\n})\r\n\r\nexport class VotingFormComponent implements OnInit {\r\n    @Input() voting: VotingType\r\n    \r\n    @Output() canceled = new EventEmitter()\r\n    @Output() updated = new EventEmitter()\r\n\r\n    data\r\n    errors\r\n\r\n    schema = yup.object().shape({\r\n        title: yup.string()\r\n            .test('len', 'Título deve ter pelo menos 5 caracteres', val => val.length >= 5)\r\n            .required(\"Título é obrigatório\"),\r\n        option1: yup.string()\r\n            .test('len', 'Opção 1 deve ter pelo menos 2 caracteres', val => val.length >= 2)\r\n            .required(\"Opção 1 é obrigatória\"),\r\n        option2: yup.string()\r\n            .test('len', 'Opção 2 deve ter pelo menos 2 caracteres', val => val.length >= 2)\r\n            .required(\"Opção 2 é obrigatória\"),\r\n        option3: yup.string()\r\n            .test('len', 'Opção 3 deve ter pelo menos 2 caracteres', val => val.length == 0 || val.length >= 2),\r\n        option4: yup.string()\r\n            .test('len', 'Opção 4 deve ter pelo menos 2 caracteres', val => val.length == 0 || val.length >= 2)\r\n    })\r\n\r\n    extractErrors ({inner}) {\r\n        return inner.reduce((acc, err) => {\r\n            return { ...acc, [err.path]: err.message }\r\n        }, {})\r\n    }\r\n\r\n    validate() {\r\n        this.schema\r\n            .validate(this.data, { abortEarly: false })\r\n            .then(() => this.errors = {})\r\n            .catch(err => this.errors = this.extractErrors(err))\r\n    }\r\n    \r\n    ngOnInit() {\r\n        this.data = {}\r\n        this.errors = {}\r\n        this.data.title = this.voting.title || ''\r\n        const options = ['','','','']\r\n        this.voting.votes.forEach((value,index) => options[index] = value['option'])\r\n        this.data.option1 = options[0]\r\n        this.data.option2 = options[1]\r\n        this.data.option3 = options[2]\r\n        this.data.option4 = options[3]\r\n    }\r\n\r\n    onSubmit() {\r\n        this.schema\r\n            .validate(this.data, { abortEarly: false })\r\n            .then(() => {\r\n                let tempVotes = [\r\n                    this.data.option1,\r\n                    this.data.option2,\r\n                    this.data.option3,\r\n                    this.data.option4\r\n                ].map(\r\n                    (option) => { \r\n                        return {option:option,count:0}\r\n                    }).filter(\r\n                        (item) => item.option.trim() !== ''\r\n                    )\r\n            \r\n                this.updated.emit(\r\n                    {\r\n                        title:this.data.title,\r\n                        state:this.voting.state,\r\n                        votes:tempVotes\r\n                    }\r\n                )\r\n            }).catch(err => {\r\n                this.errors = this.extractErrors(err)\r\n            })\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div>\r\n    <form #votingForm=\"ngForm\" (ngSubmit)=\"votingForm.form.valid && onSubmit()\">\r\n        <custom-input\r\n            label=\"Título\"\r\n            name=\"title\"\r\n            placeholder=\"Insira o título da votação\"\r\n            [(value)]=\"data.title\"\r\n            isRequired=\"true\"\r\n            minlength=3\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 1\"\r\n            placeholder=\"Insira a opção 1\"\r\n            [(value)]=\"data.options[0]\"\r\n            isRequired=\"true\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 2\"\r\n            placeholder=\"Insira a opção 2\"\r\n            [(value)]=\"data.options[1]\"\r\n            isRequired=\"true\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 3\"\r\n            placeholder=\"Insira a opção 3\"\r\n            [(value)]=\"data.options[2]\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 4\"\r\n            placeholder=\"Insira a opção 4\"\r\n            [(value)]=\"data.options[3]\"\r\n        ></custom-input>\r\n\r\n        <button type='submit'>Enviar</button>\r\n        <button (click)=\"canceled.emit()\">Cancelar</button>\r\n    </form>\r\n</div>"
+            "templateData": "<div>\r\n    <form #votingForm=\"ngForm\" (ngSubmit)=\"votingForm.form.valid && onSubmit()\">\r\n        <custom-input\r\n            label=\"Título\"\r\n            name=\"title\"\r\n            placeholder=\"Insira o título da votação\"\r\n            [(value)]=\"data.title\"\r\n            isRequired=\"true\"\r\n            minlength=3\r\n            (valueChange)=\"validate()\"\r\n            [(error)]=\"errors.title\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 1\"\r\n            placeholder=\"Insira a opção 1\"\r\n            [(value)]=\"data.option1\"\r\n            isRequired=\"true\"\r\n            (valueChange)=\"validate()\"\r\n            [(error)]=\"errors.option1\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 2\"\r\n            placeholder=\"Insira a opção 2\"\r\n            [(value)]=\"data.option2\"\r\n            isRequired=\"true\"\r\n            (valueChange)=\"validate()\"\r\n            [(error)]=\"errors.option2\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 3\"\r\n            placeholder=\"Insira a opção 3\"\r\n            [(value)]=\"data.option3\"\r\n            (valueChange)=\"validate()\"\r\n            [(error)]=\"errors.option3\"\r\n        ></custom-input>\r\n\r\n        <custom-input\r\n            label=\"Opção 4\"\r\n            placeholder=\"Insira a opção 4\"\r\n            [(value)]=\"data.option4\"\r\n            (valueChange)=\"validate()\"\r\n            [(error)]=\"errors.option4\"\r\n        ></custom-input>\r\n\r\n        <button type='submit'>Enviar</button>\r\n        <button (click)=\"canceled.emit()\">Cancelar</button>\r\n    </form>\r\n</div>"
         },
         {
             "name": "VotingResultComponent",
@@ -492,6 +652,8 @@
             "inputsClass": [
                 {
                     "name": "votes",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "line": 9,
                     "type": "literal type[]"
                 }
@@ -504,17 +666,23 @@
                     "args": [
                         {
                             "name": "index",
-                            "type": "number"
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
                     "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "index",
                             "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -522,10 +690,12 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'voting-result',\n  templateUrl: './voting-result.component.html'\n})\n\nexport class VotingResultComponent {\n  @Input() votes: {}[]\n  constructor() { }\n\n  perc(index: number) {\n    let total = this.votes.reduce((sum, item) => {return sum + item['count']}, 0)\n    return (this.votes[index]['count']/total*100).toFixed(2)       \n  }\n}\n",
             "assetsDirs": [],
@@ -534,6 +704,8 @@
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "args": [],
                 "line": 9
             },
@@ -561,6 +733,8 @@
                 {
                     "name": "current",
                     "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "null",
                     "optional": false,
                     "description": "",
@@ -569,6 +743,8 @@
                 {
                     "name": "state",
                     "defaultValue": "'listing'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "string",
                     "optional": false,
                     "description": "",
@@ -576,12 +752,14 @@
                 },
                 {
                     "name": "votingsService",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "VotingsService",
                     "optional": false,
                     "description": "",
                     "line": 13,
                     "modifierKind": [
-                        114
+                        122
                     ]
                 }
             ],
@@ -592,24 +770,32 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 40
+                    "line": 40,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "editVoting",
                     "args": [
                         {
                             "name": "index",
-                            "type": ""
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "index",
                             "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -622,7 +808,9 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 45
+                    "line": 45,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "newVoting",
@@ -630,24 +818,32 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15
+                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "openVoting",
                     "args": [
                         {
                             "name": "index",
-                            "type": ""
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 30,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "index",
                             "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -659,17 +855,23 @@
                     "args": [
                         {
                             "name": "index",
-                            "type": ""
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 26,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "index",
                             "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -681,17 +883,23 @@
                     "args": [
                         {
                             "name": "voting",
-                            "type": ""
+                            "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": ""
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 35,
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "voting",
                             "type": "",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -699,10 +907,12 @@
                     ]
                 }
             ],
+            "deprecated": false,
+            "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "description": "",
-            "rawdescription": "",
+            "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { Component, Input } from '@angular/core'\r\nimport { VotingsService } from '../votings.service'\r\n\r\n@Component({\r\n    selector: 'votings',\r\n    templateUrl: './votings.component.html'\r\n})\r\n\r\nexport class VotingsComponent {\r\n    state = 'listing'\r\n    current = null\r\n\r\n    constructor(public votingsService : VotingsService) { /* empty */ }\r\n\r\n    newVoting() {\r\n        this.votingsService.createVoting()\r\n        this.current = this.votingsService.votings.length-1\r\n        this.state = 'new'\r\n    }\r\n\r\n    editVoting(index) {\r\n        this.current = index\r\n        this.state = 'edit'\r\n    }\r\n\r\n    removeVoting(index) {\r\n        this.votingsService.deleteVoting(index)\r\n    }\r\n\r\n    openVoting(index) {\r\n        this.current = index\r\n        this.state = 'open'\r\n    }\r\n\r\n    updateChanges(voting) {\r\n        this.votingsService.updateVoting(voting,this.current)\r\n        this.state = 'listing'\r\n    }\r\n\r\n    cancelChanges() {\r\n        if (this.state === 'new') this.votingsService.deleteVoting(this.votingsService.votings.length-1)\r\n        this.state = 'listing'\r\n    }\r\n\r\n    goBack() {\r\n        this.state = 'listing'\r\n    }\r\n}",
             "assetsDirs": [],
@@ -711,10 +921,14 @@
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "args": [
                     {
                         "name": "votingsService",
-                        "type": "VotingsService"
+                        "type": "VotingsService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
                 "line": 11,
@@ -722,6 +936,8 @@
                     {
                         "name": "votingsService",
                         "type": "VotingsService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
                         "tagName": {
                             "text": "param"
                         }
@@ -734,6 +950,13 @@
     "modules": [
         {
             "name": "AppModule",
+            "id": "module-AppModule-f2f966b5983c630e32ff2dd4762ed482",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app.module.ts",
+            "methods": [],
+            "sourceCode": "import { BrowserModule } from '@angular/platform-browser'\nimport { NgModule } from '@angular/core'\nimport { FormsModule, ReactiveFormsModule } from '@angular/forms'\n\nimport { AppComponent } from './app.component'\nimport { VotingBoothComponent } from './voting-booth/voting-booth.component'\nimport { VotingResultComponent } from './voting-result/voting-result.component'\nimport { VotingCardComponent } from './voting-card/voting-card.component'\nimport { InputComponent } from './input/input.component'\nimport { VotingFormComponent } from './voting-form/voting-form.component'\nimport { VotingsComponent } from './votings/votings.component'\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    VotingBoothComponent,\n    VotingResultComponent,\n    VotingCardComponent,\n    InputComponent,\n    VotingFormComponent,\n    VotingsComponent\n  ],\n  imports: [\n    BrowserModule,\n    FormsModule,\n    ReactiveFormsModule\n  ],\n  providers: [],\n  bootstrap: [\n    AppComponent\n  ]\n})\n\nexport class AppModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -795,6 +1018,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-form/voting-form.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -803,6 +1028,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/votings/votings.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -811,6 +1038,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  production: true\n}"
             },
@@ -819,6 +1048,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  production: false\n}"
             },
@@ -827,6 +1058,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-card/voting-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -835,6 +1068,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/input/input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<InputComponent>",
                 "defaultValue": "(args: InputComponent) => ({\r\n    component: InputComponent,\r\n    props: args,\r\n})"
             },
@@ -843,6 +1078,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-booth/voting-booth.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<VotingBoothComponent>",
                 "defaultValue": "(args: VotingBoothComponent) => ({\r\n    component: VotingBoothComponent,\r\n    props: args,\r\n})"
             },
@@ -851,6 +1088,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-card/voting-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<VotingCardComponent>",
                 "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n})"
             },
@@ -859,6 +1098,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-form/voting-form.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "Story<VotingFormComponent>",
                 "defaultValue": "(args: VotingFormComponent) => ({\r\n    component: VotingFormComponent,\r\n    props: args,\r\n})"
             },
@@ -866,23 +1107,29 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/votings/votings.stories.ts",
-                "type": "Story<VotingsComponent>",
-                "defaultValue": "(args: VotingsComponent) => ({\r\n    component: VotingsComponent,\r\n    props: args,\r\n})"
+                "file": "src/app/voting-result/voting-result.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<VotingResultComponent>",
+                "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
             },
             {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/voting-result/voting-result.stories.ts",
-                "type": "Story<VotingResultComponent>",
-                "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
+                "file": "src/app/votings/votings.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<VotingsComponent>",
+                "defaultValue": "(args: VotingsComponent) => ({\r\n    component: VotingsComponent,\r\n    props: args,\r\n})"
             },
             {
                 "name": "Title",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/input/input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -891,6 +1138,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-booth/voting-booth.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -899,6 +1148,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/voting-result/voting-result.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             }
@@ -913,6 +1164,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-form/voting-form.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -921,6 +1174,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-form/voting-form.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<VotingFormComponent>",
                     "defaultValue": "(args: VotingFormComponent) => ({\r\n    component: VotingFormComponent,\r\n    props: args,\r\n})"
                 }
@@ -931,6 +1186,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/votings/votings.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -939,6 +1196,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/votings/votings.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<VotingsComponent>",
                     "defaultValue": "(args: VotingsComponent) => ({\r\n    component: VotingsComponent,\r\n    props: args,\r\n})"
                 }
@@ -949,6 +1208,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  production: true\n}"
                 }
@@ -959,6 +1220,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  production: false\n}"
                 }
@@ -969,6 +1232,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-card/voting-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 },
@@ -977,6 +1242,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-card/voting-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<VotingCardComponent>",
                     "defaultValue": "(args: VotingCardComponent) => ({\r\n    component: VotingCardComponent,\r\n    props: args,\r\n})"
                 }
@@ -987,6 +1254,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/input/input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<InputComponent>",
                     "defaultValue": "(args: InputComponent) => ({\r\n    component: InputComponent,\r\n    props: args,\r\n})"
                 },
@@ -995,6 +1264,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/input/input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 }
@@ -1005,6 +1276,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-booth/voting-booth.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<VotingBoothComponent>",
                     "defaultValue": "(args: VotingBoothComponent) => ({\r\n    component: VotingBoothComponent,\r\n    props: args,\r\n})"
                 },
@@ -1013,6 +1286,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-booth/voting-booth.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 }
@@ -1023,6 +1298,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-result/voting-result.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Story<VotingResultComponent>",
                     "defaultValue": "(args: VotingResultComponent) => ({\r\n    component: VotingResultComponent,\r\n    props: args,\r\n})"
                 },
@@ -1031,6 +1308,8 @@
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/voting-result/voting-result.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "Template.bind({})"
                 }
@@ -1051,7 +1330,7 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -1060,7 +1339,7 @@
                 "linktype": "component",
                 "name": "InputComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
@@ -1147,7 +1426,7 @@
                 "linktype": "component",
                 "name": "VotingFormComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {

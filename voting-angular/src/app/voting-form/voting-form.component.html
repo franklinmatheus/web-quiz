@@ -7,32 +7,42 @@
             [(value)]="data.title"
             isRequired="true"
             minlength=3
+            (valueChange)="validate()"
+            [(error)]="errors.title"
         ></custom-input>
 
         <custom-input
             label="Opção 1"
             placeholder="Insira a opção 1"
-            [(value)]="data.options[0]"
+            [(value)]="data.option1"
             isRequired="true"
+            (valueChange)="validate()"
+            [(error)]="errors.option1"
         ></custom-input>
 
         <custom-input
             label="Opção 2"
             placeholder="Insira a opção 2"
-            [(value)]="data.options[1]"
+            [(value)]="data.option2"
             isRequired="true"
+            (valueChange)="validate()"
+            [(error)]="errors.option2"
         ></custom-input>
 
         <custom-input
             label="Opção 3"
             placeholder="Insira a opção 3"
-            [(value)]="data.options[2]"
+            [(value)]="data.option3"
+            (valueChange)="validate()"
+            [(error)]="errors.option3"
         ></custom-input>
 
         <custom-input
             label="Opção 4"
             placeholder="Insira a opção 4"
-            [(value)]="data.options[3]"
+            [(value)]="data.option4"
+            (valueChange)="validate()"
+            [(error)]="errors.option4"
         ></custom-input>
 
         <button type='submit'>Enviar</button>

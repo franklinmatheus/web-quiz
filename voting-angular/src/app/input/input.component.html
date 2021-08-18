@@ -12,11 +12,13 @@
             [placeholder]="placeholder"
             [required]="isRequired"
             [(ngModel)]="value"
-            (change)="changed.emit(inputField.value)"
-            (blur)="changed.emit(inputField.value)"
+            [value]="value"
+            (change)="valueChange.emit(inputField.value)"
+            (input)="valueChange.emit(inputField.value)"
+            (blur)="valueChange.emit(inputField.value)"
             [minlength]="minlength"
         />
         
-        <div class="error">{{ error(inputField) }}</div>
+        <div class="error">{{ error }}</div>
     </div>
 </div>
