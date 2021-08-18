@@ -6,7 +6,7 @@
 
     ```shell
     # Go to the directory
-    cd quiz-svelte/
+    cd voting-svelte/
 
     # Install the dependencies
     yarn
@@ -20,4 +20,4 @@
 
     Run `yarn storybook` and go to `http://localhost:6006`
     
-    Check out the Storybook by clicking [here](https://60f3a3e1714a7300396a5e72-uaamrfwitv.chromatic.com).
+    Check out the Storybook by clicking [here](https://60f3a3e1714a7300396a5e72-huubfgqmrc.chromatic.com).
