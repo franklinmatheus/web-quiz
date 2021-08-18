@@ -6,7 +6,7 @@
 
     ```shell
     # Go to the directory
-    cd quiz-react/
+    cd voting-react/
 
     # Install the dependencies
     yarn
@@ -20,4 +20,4 @@
 
     Run `yarn storybook` and go to `http://localhost:6006`
     
-    Check out the Storybook by clicking [here](https://60f39fe070fd860039dc8947-fljrkrdxjz.chromatic.com).
+    Check out the Storybook by clicking [here](https://60f39fe070fd860039dc8947-txnldhdjnm.chromatic.com/).
