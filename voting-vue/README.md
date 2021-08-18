@@ -1,24 +1,23 @@
-# voting-vue-new
+## Voting Vue
 
-## Project setup
-```
-yarn install
-```
+1.  **Install the dependencies.**
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+    Just:
 
-### Compiles and minifies for production
-```
-yarn build
-```
+    ```shell
+    # Go to the directory
+    cd voting-vue/
 
-### Lints and fixes files
-```
-yarn lint
-```
+    # Install the dependencies
+    yarn
+    ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+2.  **Run the vue project!**
+
+    Run `yarn serve` and go to `http://localhost:8080`
+
+3.  **Check out the stories!**
+
+    Run `yarn storybook` and go to `http://localhost:6006`
+    
+    Check out the Storybook by clicking [here](https://60f3a24f70fd860039dc8f9d-uibzvnebzr.chromatic.com).
